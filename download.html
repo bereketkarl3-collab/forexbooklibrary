@@ -1,0 +1,18 @@
+<?php
+$pdf_file = $_GET['pdf'];
+
+// Check if PDF exists
+if(file_exists($pdf_file)){
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="'.basename($pdf_file).'"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($pdf_file));
+    readfile($pdf_file);
+    exit;
+} else {
+    echo "PDF not found!";
+}
+?>
