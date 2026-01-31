@@ -1,115 +1,71 @@
-/* General body */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     text-align: center;
-    background: #f5f6fa;
-    color: #2f3640;
+    background: #f0f4f8;
+    color: #333;
 }
 
-/* Header */
 header {
-    background: #273c75;
-    color: #f5f6fa;
+    background: #1a73e8;
+    color: white;
     padding: 25px 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Main title */
-h1 {
-    margin: 0;
-    font-size: 28px;
+h1 { margin: 0; }
+h5 {
+    margin: 10px 20px;
+    font-weight: normal;
 }
 
-/* PDF gallery */
 .gallery {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    margin: 30px 10px;
+    justify-content: center;
+    margin: 30px 0;
 }
 
-/* Each PDF item */
 .pdf-item {
     margin: 15px;
-    border: 1px solid #dcdde1;
-    border-radius: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     width: 220px;
     background: #ffffff;
     padding: 15px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s;
 }
 
 .pdf-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* PDF cover image */
 .pdf-item img {
     width: 100%;
     border-radius: 8px;
 }
 
-/* PDF title */
 .pdf-item h3 {
-    margin: 10px 0 5px 0;
-    font-size: 18px;
-    color: #192a56;
+    font-size: 16px;
+    margin: 10px 0;
 }
 
-/* PDF price */
 .pdf-item p {
-    margin: 5px 0;
-    color: #718093;
+    margin: 8px 0;
 }
 
-/* Buttons */
 .pdf-item a.button {
     display: inline-block;
     margin-top: 12px;
     padding: 10px 20px;
-    background: #e1b12c;
-    color: #2f3640;
+    background: #28a745;
+    color: white;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 5px;
     font-weight: bold;
-    transition: background 0.2s;
 }
 
 .pdf-item a.button:hover {
-    background: #d4a017;
-}
-
-/* Payment page container */
-.payment-container {
-    background: #ffffff;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    text-align: left;
-}
-
-.payment-container ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.payment-container ul li {
-    padding: 10px 0;
-    font-size: 18px;
-    color: #2f3640;
-}
-
-.payment-container p {
-    margin: 15px 0;
-}
-
-.payment-container a.button {
-    display: block;
-    text-align: center;
-    margin-top: 25px;
+    background: #218838;
 }
