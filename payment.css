@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f2f5f9;
+}
+
+.header {
+  background: #1e88e5;
+  color: white;
+  padding: 18px;
+  text-align: center;
+}
+
+.payment-box {
+  background: white;
+  margin: 16px;
+  padding: 18px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.note {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.pay-method {
+  background: #f7f9fc;
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.telegram-btn {
+  display: block;
+  background: #0088cc;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 14px;
+}
+
+.telegram-btn:hover {
+  background: #0077b3;
+}
+
+.small-text {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  color: #1e88e5;
+  text-decoration: none;
+  font-weight: bold;
+}

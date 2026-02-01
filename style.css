@@ -1,71 +1,104 @@
-body {
-    font-family: Arial, sans-serif;
+/* RESET */
+* {
     margin: 0;
-    text-align: center;
-    background: #f0f4f8;
-    color: #333;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+/* BODY */
+body {
+    background: #f2f5f9;
+    color: #222;
+}
+
+/* HEADER */
 header {
-    background: #1a73e8;
-    color: white;
-    padding: 25px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+    color: #fff;
+    padding: 20px 15px;
+    text-align: center;
 }
 
-h1 { margin: 0; }
-h5 {
-    margin: 10px 20px;
+header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+header h5 {
+    font-size: 14px;
     font-weight: normal;
+    line-height: 1.6;
+    opacity: 0.95;
 }
 
+/* GALLERY GRID */
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding: 14px;
 }
 
+/* CARD */
 .pdf-item {
-    margin: 15px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 220px;
     background: #ffffff;
-    padding: 15px;
-    transition: transform 0.2s;
+    border-radius: 14px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .pdf-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
 
+/* IMAGE */
 .pdf-item img {
     width: 100%;
-    border-radius: 8px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 8px;
 }
 
+/* TITLE */
 .pdf-item h3 {
-    font-size: 16px;
-    margin: 10px 0;
+    font-size: 14px;
+    margin-bottom: 6px;
+    min-height: 36px;
 }
 
+/* PRICE */
 .pdf-item p {
-    margin: 8px 0;
+    font-weight: bold;
+    color: #1e88e5;
+    margin-bottom: 8px;
 }
 
-.pdf-item a.button {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 10px 20px;
-    background: #28a745;
+/* BUTTON */
+.button {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    background: linear-gradient(135deg, #2e7d32, #1b5e20);
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 10px;
     font-weight: bold;
+    font-size: 14px;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.pdf-item a.button:hover {
-    background: #218838;
+.button:hover {
+    background: linear-gradient(135deg, #388e3c, #2e7d32);
+    transform: scale(1.02);
+}
+
+/* SMALL SCREENS (OPTIONAL) */
+@media (max-width: 360px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
 }
