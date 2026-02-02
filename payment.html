@@ -5,43 +5,71 @@
   <title>Payment | Forex PDF Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="payment.css">
+  <meta name="theme-color" content="#1e88e5">
 </head>
 <body>
 
-  <div class="header">
-    <h2>💳 Payment Instructions</h2>
-  </div>
+<!-- HEADER -->
+<div class="header">
+    <h2>💳 Complete Your Payment</h2>
+    <p>Securely pay and get your PDF delivered instantly via Telegram.</p>
+    <p class="creator">Made by <a href="https://t.me/B_BEK27" target="_blank">@B_BEK27</a></p>
+</div>
 
-  <div class="payment-box">
+<!-- PAYMENT BOX -->
+<div class="payment-box">
 
-    <p class="note">
-      To receive your PDF, please complete the payment and send a screenshot with the book name on Telegram.
-    </p>
+    <p class="note">Select your preferred payment method:</p>
 
-    <div class="pay-method">
+    <!-- Payment method options -->
+    <div class="pay-options">
+      <label><input type="radio" name="payment" value="telebirr" checked> 📱 Telebirr</label>
+      <label><input type="radio" name="payment" value="cbe"> 🏦 CBE Account</label>
+    </div>
+
+    <!-- Payment info dynamically updated -->
+    <div id="payment-info" class="pay-method">
       <span>📱 Telebirr</span>
       <strong>0952819016</strong>
     </div>
 
-    <div class="pay-method">
-      <span>🏦 CBE Account</span>
-      <strong>1000652843453</strong>
-    </div>
-
-    <a
-      class="telegram-btn"
-      href="https://t.me/forexbooklibrarysupport"
-      target="_blank">
-      📩 Send Payment Screenshot on Telegram
+    <!-- Telegram send button -->
+    <a class="telegram-btn" href="https://t.me/forexbooklibrarysupport?start=SMC-150" target="_blank">
+      📩 Send Payment Screenshot
     </a>
 
     <p class="small-text">
       After confirmation, your PDF will be delivered within minutes.
     </p>
 
+    <!-- Back link -->
     <a href="index.html" class="back-link">⬅ Back to Library</a>
 
-  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Forex PDF Library</p>
+    <p>Made by <a href="https://t.me/B_BEK27" target="_blank">@B_BEK27</a></p>
+    <p>Support: <a href="https://t.me/forexbooklibrarysupport">Telegram</a></p>
+    <p class="disclaimer">For educational purposes only.</p>
+</footer>
+
+<!-- JS to switch account info -->
+<script>
+const options = document.querySelectorAll('input[name="payment"]');
+const info = document.getElementById('payment-info');
+
+options.forEach(opt => {
+    opt.addEventListener('change', () => {
+        if(opt.value === 'telebirr') {
+            info.innerHTML = '<span>📱 Telebirr</span><strong>0952819016</strong>';
+        } else {
+            info.innerHTML = '<span>🏦 CBE Account</span><strong>1000652843453</strong>';
+        }
+    });
+});
+</script>
 
 </body>
 </html>
