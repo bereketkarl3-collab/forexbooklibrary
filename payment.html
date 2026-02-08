@@ -4,28 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Payment 💳</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="payment.css">
 </head>
 <body>
 
 <header class="hero">
     <h1>Payment 💳💰</h1>
+    
 </header>
 
-<!-- Payment PDF preview -->
+<!-- PDF preview -->
 <div class="payment-preview">
     <div class="pdf-item">
-        <img id="pdf-image" src="smcbible.jpg" alt="Selected PDF">
+        <img id="pdf-image" src="smcbible.jpg" alt="SMART MONEY CONCEPT">
         <h3 id="pdf-title">💰 SMART MONEY CONCEPT</h3>
-        <p class="price" id="pdf-price">150 ETB</p>
+        <p class="price">150 ETB</p>
     </div>
 </div>
 
-<!-- Ready to Pay -->
-<h3 style="text-align:center; margin: 12px 0;">✅ Ready to Pay 💳</h3>
-
 <!-- Bank selection -->
-<h4 style="text-align:center; margin: 8px 0;">Select your bank 🏦 and send the payment screenshot 📸</h4>
+<p class="ready-text">🚨 Ready to Pay</p>
+<p class="ready-text">✅ Select your bank 🏦 and send the payment screenshot 📸</p>
 <div class="payment-options">
     <button class="bank-btn" onclick="showBank('Tele Birr', '0952819016')">📲 Tele Birr</button>
     <button class="bank-btn" onclick="showBank('CBE', '1000652843453')">🏦 CBE</button>
@@ -49,23 +48,19 @@
 </footer>
 
 <script>
+// Show selected bank account
 function showBank(bankName, account) {
     const details = document.getElementById('bank-details');
     details.innerHTML = `<strong>🏦 ${bankName} Account: ${account}</strong>`;
 }
 
-// Preload PDF info if passed from index.html
-window.onload = function() {
-    const params = new URLSearchParams(window.location.search);
-    const pdfTitle = params.get('pdf');
-    const pdfImg = params.get('img');
-    const pdfPrice = params.get('price') || "150 ETB";
-
-    if(pdfTitle && pdfImg) {
-        document.getElementById('pdf-title').textContent = pdfTitle;
-        document.getElementById('pdf-image').src = pdfImg;
-        document.getElementById('pdf-price').textContent = pdfPrice;
-    }
+// If coming from index with query parameters, set PDF info dynamically
+const params = new URLSearchParams(window.location.search);
+const pdfTitle = params.get('pdf');
+const pdfImage = params.get('img');
+if (pdfTitle && pdfImage) {
+    document.getElementById('pdf-title').textContent = pdfTitle;
+    document.getElementById('pdf-image').src = pdfImage;
 }
 </script>
 
