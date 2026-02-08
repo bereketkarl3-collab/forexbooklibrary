@@ -1,74 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Payment | Forex PDF Library</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="payment.css">
-  <meta name="theme-color" content="#1e88e5">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment 💳</title>
+<link rel="stylesheet" href="payment.css">
+<style>
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+body {
+    background: url('ctrs.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    color: #222;
+    padding-bottom: 50px;
+}
+
+/* HEADER */
+header.hero {
+    background: linear-gradient(135deg, rgba(30,136,229,0.9), rgba(13,71,161,0.9));
+    color: #fff;
+    text-align: center;
+    padding: 24px 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+/* PDF PREVIEW */
+.payment-preview {
+    display: flex;
+    justify-content: center;
+    margin: 16px;
+}
+.pdf-item {
+    background: rgba(255,255,255,0.95);
+    border-radius: 14px;
+    padding: 10px;
+    text-align: center;
+    max-width: 300px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+}
+.pdf-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+/* PAYMENT INSTRUCTION CARD */
+.payment-instruction {
+    background: linear-gradient(135deg, #1e88e5, #0d47a1);
+    color: #fff;
+    text-align: center;
+    padding: 14px 20px;
+    margin: 16px auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    max-width: 500px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.payment-instruction span {
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* BANK SELECTION BUTTONS */
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 12px;
+    max-width: 360px;
+    margin: 16px auto;
+}
+.bank-btn {
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg,#2e7d32,#1b5e20);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background 0.2s;
+}
+.bank-btn:hover {
+    background: linear-gradient(135deg,#388e3c,#2e7d32);
+    transform: scale(1.05);
+}
+
+/* BANK DETAILS */
+.bank-details {
+    text-align: center;
+    margin: 12px 0;
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+}
+
+/* SEND & BACK BUTTONS */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 300px;
+    margin: 20px auto 40px auto;
+}
+.action-buttons .button {
+    padding: 12px 0;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg,#1e88e5,#0d47a1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background 0.2s;
+}
+.action-buttons .button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg,#1565c0,#0b3d91);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    margin-top: 20px;
+}
+
+/* ALWAYS 2 COLUMN BANK BUTTONS */
+@media (max-width: 480px) {
+    .payment-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <h2>💳 Complete Your Payment</h2>
-    <p>Securely pay and get your PDF delivered instantly via Telegram.</p>
-    <p class="creator">Made by <a href="https://t.me/B_BEK27" target="_blank">@B_BEK27</a></p>
+<header class="hero">
+    <h1>Payment 💳💰</h1>
+</header>
+
+<!-- PDF preview -->
+<div class="payment-preview">
+    <div class="pdf-item">
+        <img src="smcbible.jpg" alt="SMART MONEY CONCEPT">
+        <h3>💰 SMART MONEY CONCEPT</h3>
+        <p class="price">150 ETB</p>
+    </div>
 </div>
 
-<!-- PAYMENT BOX -->
-<div class="payment-box">
-
-    <p class="note">Select your preferred payment method:</p>
-
-    <!-- Payment method options -->
-    <div class="pay-options">
-      <label><input type="radio" name="payment" value="telebirr" checked> 📱 Telebirr</label>
-      <label><input type="radio" name="payment" value="cbe"> 🏦 CBE Account</label>
-    </div>
-
-    <!-- Payment info dynamically updated -->
-    <div id="payment-info" class="pay-method">
-      <span>📱 Telebirr</span>
-      <strong>0952819016</strong>
-    </div>
-
-    <!-- Telegram send button -->
-    <a class="telegram-btn" href="https://t.me/forexbooklibrarysupport?start=SMC-150" target="_blank">
-      📩 Send Payment Screenshot
-    </a>
-
-    <p class="small-text">
-      After confirmation, your PDF will be delivered within minutes.
-    </p>
-
-    <!-- Back link -->
-    <a href="index.html" class="back-link">⬅ Back to Library</a>
-
+<!-- Payment instruction -->
+<div class="payment-instruction">
+    <span>⚡ Ready to Pay? ⚡</span>
+    <p>Select your bank 🏦 and send the payment screenshot 📸 to complete your order!</p>
 </div>
 
-<!-- FOOTER -->
+<!-- Bank selection -->
+<div class="payment-options">
+    <button class="bank-btn" onclick="showBank('Tele Birr', '0952819016')">📲 Tele Birr</button>
+    <button class="bank-btn" onclick="showBank('CBE', '1000652843453')">🏦 CBE</button>
+</div>
+
+<!-- Bank details -->
+<div id="bank-details" class="bank-details"></div>
+
+<!-- Send screenshot and Back buttons -->
+<div class="action-buttons">
+    <button class="button send-btn" onclick="window.location.href='https://t.me/forexbooklibrarysupport';">
+        📸 Send Screenshot
+    </button>
+    <button class="button back-btn" onclick="window.location.href='index.html';">
+        🏠 Back to Main Menu
+    </button>
+</div>
+
 <footer>
-    <p>© 2026 Forex PDF Library</p>
-    <p>Made by <a href="https://t.me/B_BEK27" target="_blank">@B_BEK27</a></p>
-    <p>Support: <a href="https://t.me/forexbooklibrarysupport">Telegram</a></p>
-    <p class="disclaimer">For educational purposes only.</p>
+    <p class="username">👤 @B_BEK27</p>
 </footer>
 
-<!-- JS to switch account info -->
 <script>
-const options = document.querySelectorAll('input[name="payment"]');
-const info = document.getElementById('payment-info');
-
-options.forEach(opt => {
-    opt.addEventListener('change', () => {
-        if(opt.value === 'telebirr') {
-            info.innerHTML = '<span>📱 Telebirr</span><strong>0952819016</strong>';
-        } else {
-            info.innerHTML = '<span>🏦 CBE Account</span><strong>1000652843453</strong>';
-        }
-    });
-});
+function showBank(bankName, account) {
+    const details = document.getElementById('bank-details');
+    details.innerHTML = `<strong>🏦 ${bankName} Account: ${account}</strong>`;
+}
 </script>
 
 </body>

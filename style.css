@@ -3,71 +3,59 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
 }
 
 body {
-    background: #f2f5f9;
+    background: url('ctrs.jpeg') no-repeat center center fixed; /* Forex background image */
+    background-size: cover;
     color: #222;
 }
 
-/* HEADER / HERO */
+/* HEADER */
 header.hero {
-    background: linear-gradient(135deg, #1e88e5, #0d47a1);
+    background: linear-gradient(135deg, rgba(30,136,229,0.9), rgba(13,71,161,0.9));
     color: #fff;
     padding: 28px 16px;
     text-align: center;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
 }
-
 header.hero h1 {
-    font-size: 24px;
+    font-size: 26px;
     margin-bottom: 8px;
 }
-
 header.hero p {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.5;
     opacity: 0.95;
 }
-
 header.hero .hero-badge {
     display: inline-block;
     margin-top: 12px;
     padding: 6px 12px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255,255,255,0.2);
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 13px;
 }
 
-/* SOCIAL PROOF */
-.social-proof {
-    text-align: center;
-    font-size: 12px;
-    color: #444;
-    margin: 10px 0;
-}
-
-/* GALLERY GRID */
+/* GALLERY */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    padding: 14px;
+    grid-template-columns: repeat(2, 1fr); /* always 2 columns */
+    gap: 16px;
+    padding: 16px;
 }
 
-/* PDF ITEM CARD */
+/* PDF ITEM */
 .pdf-item {
-    background: #fff;
+    background: rgba(255,255,255,0.95);
     border-radius: 14px;
     padding: 10px;
     text-align: center;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
 }
-
 .pdf-item:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
@@ -81,40 +69,18 @@ header.hero .hero-badge {
     margin-bottom: 8px;
 }
 
-/* BADGE */
-.pdf-item .tag {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #1e88e5;
-    color: #fff;
-    font-size: 10px;
-    padding: 4px 8px;
-    border-radius: 8px;
-}
-
-/* TITLE / SUBTITLE */
+/* TITLE */
 .pdf-item h3 {
-    font-size: 14px;
+    font-size: 15px;
     margin-bottom: 4px;
     min-height: 36px;
-}
-
-.pdf-item .subtitle {
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 6px;
 }
 
 /* PRICE */
 .pdf-item p.price {
     font-weight: bold;
-    color: #1565c0; /* Blue color for all prices */
+    color: #1565c0;
     margin-bottom: 8px;
-}
-
-.pdf-item p.price span {
-    font-size: 18px;
 }
 
 /* BUTTON */
@@ -130,10 +96,31 @@ header.hero .hero-badge {
     font-size: 14px;
     transition: background 0.2s ease, transform 0.2s ease;
 }
-
 .button:hover {
     background: linear-gradient(135deg, #388e3c, #2e7d32);
     transform: scale(1.02);
+}
+
+/* CHANNEL & GROUP */
+.channel-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+.channel-group a {
+    display: inline-block;
+    padding: 10px 14px;
+    background: #1e88e5;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.2s ease;
+}
+.channel-group a:hover {
+    background: #1565c0;
 }
 
 /* FOOTER */
@@ -141,22 +128,18 @@ footer {
     text-align: center;
     font-size: 12px;
     padding: 16px;
-    color: #666;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
 }
-
 footer a {
     color: #1e88e5;
     text-decoration: none;
     font-weight: bold;
 }
 
-footer a:hover {
-    text-decoration: underline;
-}
-
-/* RESPONSIVE */
-@media (max-width: 360px) {
+/* RESPONSIVE: always 2 columns */
+@media (max-width: 600px) {
     .gallery {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr); /* force 2 columns even on mobile */
     }
 }
