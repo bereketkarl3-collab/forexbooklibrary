@@ -1,150 +1,92 @@
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
 }
+body{
+  background:#0f172a;
+  color:white;
+  padding:20px;
+}
+.hero{text-align:center;margin-bottom:20px;}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:15px;
+}
+.pdf-item{
+  background:#1e293b;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.pdf-item:hover{
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(0,230,118,0.3);
+}
+.pdf-item img{
+  width:100%;
+  border-radius:8px;
+}
+.price{color:#00e676;font-weight:bold;}
+.buy-btn{
+  margin-top:8px;
+  padding:10px;
+  border:none;
+  background:#00c853;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  box-shadow:0 0 8px #00e676;
+  animation: glow 2s infinite alternate;
+}
+.buy-btn:hover{transform: scale(1.05);}
+@keyframes glow{from{box-shadow:0 0 8px #00e676;}to{box-shadow:0 0 18px #00ff80;}}
 
-body {
-    background: url('ctrs.jpeg') no-repeat center center fixed;
-    background-size: cover;
-    color: #ffffff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.telegram-links-main{
+  display:flex; justify-content:center; gap:15px; margin-bottom:20px;
 }
+.telegram-links-main a{
+  background:#3b82f6; padding:10px; border-radius:8px; text-decoration:none; color:white; font-weight:bold;
+}
+.telegram-links-main a:hover{background:#60a5fa;}
 
-/* HEADER */
-header.hero {
-    background: linear-gradient(135deg, rgba(30,136,229,0.9), rgba(13,71,161,0.9));
-    color: #fff;
-    padding: 24px 16px;
-    text-align: center;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
-    width: 100%;
+/* MODAL */
+.modal{
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center;
+  opacity:0; visibility:hidden; transform: translateY(-50px); transition:0.4s ease-in-out;
 }
-header.hero h1 {
-    font-size: 26px;
-    margin-bottom: 6px;
+.modal.show{opacity:1; visibility:visible; transform: translateY(0);}
+.modal-content{
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  padding:25px; border-radius:16px; width:90%; max-width:400px; text-align:center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.7); animation: fadeIn 0.4s ease-in-out;
 }
-header.hero p {
-    font-size: 14px;
-    margin-bottom: 8px;
+@keyframes fadeIn{from{opacity:0; transform: translateY(-20px);}to{opacity:1; transform: translateY(0);}}
+.modal-image img{
+  width:100%; max-width:200px; border-radius:12px; border:3px solid #00e676;
+  box-shadow:0 0 20px rgba(0,230,118,0.5); transition: transform 0.3s;
 }
-.hero-badge {
-    display: inline-block;
-    background: #00e676;
-    color: #000;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 12px;
+.modal-image img:hover{transform: scale(1.05);}
+.bank-btn{
+  margin:10px 5px; padding:10px 15px; border:none; border-radius:10px;
+  background:linear-gradient(135deg,#3b82f6,#60a5fa); color:white; cursor:pointer; font-weight:bold;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-
-/* CHANNEL LINKS */
-.channel-group {
-    margin: 12px 0;
+.bank-btn:hover{transform: scale(1.05); box-shadow:0 0 15px rgba(96,165,250,0.7);}
+.account-details{margin-top:10px;}
+.account-box{
+  background:#111827; padding:10px; border-radius:10px; border:2px solid #00e676; cursor:pointer; font-weight:bold;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.channel-group a {
-    display: inline-block;
-    margin: 4px 8px;
-    padding: 8px 12px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #1e88e5, #42a5f5);
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 0 8px rgba(66,165,245,0.6);
-    transition: transform 0.2s;
+.account-box:hover{transform: scale(1.02); box-shadow:0 0 10px #00e676;}
+.screenshot-btn{
+  display:block; margin:15px auto; padding:12px; background:linear-gradient(135deg,#00c853,#00e676);
+  border-radius:12px; text-decoration:none; font-weight:bold; color:white; text-align:center;
 }
-.channel-group a:hover {
-    transform: scale(1.05);
-}
-
-/* GALLERY - 2 columns */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    justify-items: center;
-    width: 100%;
-    max-width: 700px;
-    margin-bottom: 20px;
-}
-
-/* PDF ITEMS */
-.pdf-item {
-    background: rgba(0,0,0,0.5);
-    border-radius: 14px;
-    padding: 10px;
-    text-align: center;
-    max-width: 320px;
-    width: 90%;
-}
-.pdf-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 8px;
-}
-.pdf-item h3 {
-    font-size: 15px;
-    color: #00c0ff; /* Blue titles */
-    margin-bottom: 4px;
-}
-.price {
-    font-weight: bold;
-    color: #00e676;
-    margin-bottom: 8px;
-}
-
-/* BUY BUTTON - animated glow */
-.pdf-item .button {
-    display: block;
-    max-width: 260px;
-    margin: 8px auto;
-    padding: 12px;
-    background: linear-gradient(135deg, #00c853, #00e676);
-    color: #ffffff;
-    font-weight: bold;
-    border: none;
-    border-radius: 14px;
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center;
-    box-shadow: 0 0 12px rgba(0,230,118,0.5);
-    animation: glowPulse 2s infinite;
-}
-@keyframes glowPulse {
-    0% { box-shadow: 0 0 10px rgba(0,230,118,0.4); }
-    50% { box-shadow: 0 0 22px rgba(0,230,118,0.9); }
-    100% { box-shadow: 0 0 10px rgba(0,230,118,0.4); }
-}
-.pdf-item .button:hover { transform: scale(1.06); }
-
-/* FOOTER */
-footer {
-    text-align: center;
-    font-size: 12px;
-    padding: 16px;
-    color: #fff;
-    margin-top: 20px;
-}
-footer a {
-    color: #1e88e5;
-    text-decoration: none;
-    font-weight: bold;
-}
-footer a:hover { text-decoration: underline; }
-
-/* RESPONSIVE */
-@media(max-width:480px){
-    .gallery {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .pdf-item { max-width: 90%; }
-    .pdf-item .button { max-width: 90%; font-size: 13px; }
-}
+.close-btn{margin-top:15px; background:#ef4444;}
+footer{text-align:center; margin-top:20px; font-size:14px; color:#fff;}
