@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FXBOOKSTORE | Admin Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --gold: #d4af37;
+  --gold-light: #f5d76e;
+  --bg: #080a0e;
+  --panel: #12161d;
+  --border: #292f3a;
+  --text: #f5f5f5;
+  --muted: #9da7b5;
+  --red: #ff5353;
+  --green: #30d695;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.gold {
+  color: var(--gold);
+}
+
+.container {
+  width: min(1200px, 94%);
+  margin: auto;
+}
+
+header {
+  background: #10141a;
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.brand span {
+  color: var(--gold);
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 15px;
+  font-weight: 700;
+}
+
+.primary {
+  background: var(--gold);
+  color: #111;
+}
+
+.secondary {
+  background: #29313c;
+  color: white;
+}
+
+.danger {
+  background: #641f27;
+  color: white;
+}
+
+.success {
+  background: #125c43;
+  color: white;
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+main {
+  padding: 25px 0 50px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 21px;
+}
+
+label {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 12px 0 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  background: #090c11;
+  border: 1px solid var(--border);
+  color: white;
+  border-radius: 8px;
+  padding: 12px;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold);
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.status {
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+.status.info {
+  background: #172333;
+  color: #b8d6ff;
+}
+
+.status.error {
+  background: #421b20;
+  color: #ffb9b9;
+}
+
+.status.ok {
+  background: #123b2c;
+  color: #9af1cb;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 25px;
+  color: var(--gold);
+  margin-top: 8px;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.nav button {
+  background: #202630;
+  color: white;
+}
+
+.nav button.active {
+  background: var(--gold);
+  color: #111;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.toolbar input {
+  flex: 1;
+  min-width: 180px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+}
+
+th, td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  color: var(--gold);
+  font-size: 13px;
+}
+
+td {
+  font-size: 14px;
+}
+
+.book-thumb {
+  width: 48px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 5px;
+  background: #222;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 20px;
+  background: #27352f;
+  color: #a4f1c7;
+  font-size: 12px;
+}
+
+.badge.off {
+  background: #3a2828;
+  color: #ffb8b8;
+}
+
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.banner-card {
+  background: #0a0d12;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  overflow-wrap: anywhere;
+}
+
+.banner-card img {
+  width: 100%;
+  max-height: 190px;
+  object-fit: contain;
+  background: #171b22;
+  border-radius: 7px;
+}
+
+.small {
+  font-size: 12px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+#loginScreen {
+  max-width: 470px;
+  margin: 55px auto;
+}
+
+#appScreen {
+  display: none;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    padding: 14px;
+  }
+
+  .panel {
+    padding: 15px;
+  }
+
+  .brand {
+    font-size: 19px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container header-row">
+    <div class="brand">FX<span>BOOKSTORE</span> <small style="font-size:12px;color:#9da7b5">ADMIN</small></div>
+    <button id="logoutBtn" class="danger hidden" onclick="logout()">Log Out</button>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- LOGIN -->
+  <section id="loginScreen" class="panel">
+    <h1>Admin <span class="gold">Login</span></h1>
+    <p class="small">Sign in using your existing Supabase account.</p>
+
+    <form id="loginForm">
+      <label for="loginEmail">Email address</label>
+      <input id="loginEmail" type="email" autocomplete="username" required>
+
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" type="password" autocomplete="current-password" required>
+
+      <div class="actions">
+        <button class="primary" id="loginBtn" type="submit">Sign In</button>
+      </div>
+    </form>
+
+    <div id="loginStatus" aria-live="polite"></div>
+
+    <p class="small">
+      Only accounts registered as FXBOOKSTORE administrators can access this dashboard.
+    </p>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="appScreen">
+
+    <div id="globalStatus" aria-live="polite"></div>
+
+    <div class="stats">
+      <div class="stat">
+        Total books
+        <strong id="totalBooks">0</strong>
+      </div>
+
+      <div class="stat">
+        Active books
+        <strong id="activeBooks">0</strong>
+      </div>
+
+      <div class="stat">
+        Banners
+        <strong id="totalBanners">0</strong>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="active" data-tab="booksTab">📚 Books</button>
+      <button data-tab="bannersTab">🖼️ Banners</button>
+      <button data-tab="settingsTab">💳 Payments</button>
+    </div>
+
+    <!-- BOOK MANAGEMENT -->
+    <section id="booksTab" class="panel tab">
+      <h2>Book Management</h2>
+      <p class="small">Add new books or edit your existing 35 books.</p>
+
+      <form id="bookForm">
+        <input id="bookId" type="hidden">
+
+        <div class="form-grid">
+          <div>
+            <label for="bookTitle">Book title *</label>
+            <input id="bookTitle" required maxlength="200">
+          </div>
+
+          <div>
+            <label for="bookPrice">Price (ETB) *</label>
+            <input id="bookPrice" type="number" min="0" step="0.01" required>
+          </div>
+
+          <div>
+            <label for="bookCategory">Category</label>
+            <select id="bookCategory">
+              <option value="ict">ICT</option>
+              <option value="price">Price Action</option>
+              <option value="psychology">Trading Psychology</option>
+              <option value="liquidity">Liquidity</option>
+              <option value="amharic">Amharic</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="bookImage">Book cover image</label>
+            <input id="bookImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+            <div class="small">Optional. Maximum file size: 5 MB.</div>
+          </div>
+        </div>
+
+        <label for="bookDescription">Description</label>
+        <textarea id="bookDescription" maxlength="3000"></textarea>
+
+        <label for="bookImageUrl">Existing image URL or filename</label>
+        <input id="bookImageUrl" placeholder="Example: smcbible.jpg or https://...">
+
+        <label>
+          <input id="bookActive" type="checkbox" checked style="width:auto">
+          Show this book on the public website
+        </label>
+
+        <div class="actions">
+          <button id="saveBookBtn" class="primary" type="submit">Save Book</button>
+          <button class="secondary" type="button" onclick="resetBookForm()">Clear Form</button>
+        </div>
+      </form>
+
+      <hr style="border-color:var(--border);margin:25px 0">
+
+      <div class="toolbar">
+        <input id="bookSearch" placeholder="Search books by title...">
+        <button class="secondary" onclick="loadBooks()">Refresh</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cover</th>
+              <th>Book</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="booksTable">
+            <tr><td colspan="5">Loading books...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BANNERS -->
+    <section id="bannersTab" class="panel tab hidden">
+      <h2>Promotional Banners</h2>
+      <p class="small">Upload promotional images and set an optional destination link.</p>
+
+      <form id="bannerForm">
+        <input id="bannerId" type="hidden">
+
+        <label for="bannerTitle">Banner title *</label>
+        <input id="bannerTitle" required maxlength="200">
+
+        <label for="bannerLink">Destination link (optional)</label>
+        <input id="bannerLink" type="url" placeholder="https://...">
+
+        <label for="bannerImage">Banner image</label>
+        <input id="bannerImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+        <div class="small">Maximum file size: 5 MB.</div>
+
+        <label for="bannerImageUrl">Existing image URL (optional)</label>
+        <input id="bannerImageUrl" placeholder="https://...">
+
+        <label>
+          <input id="bannerActive" type="checkbox" checked style="width:auto">
+          Active banner
+        </label>
+
+        <div class="actions">
+          <button class="primary" id="saveBannerBtn" type="submit">Save Banner</button>
+          <button class="secondary" type="button" onclick="resetBannerForm()">Clear</button>
+        </div>
+      </form>
+
+      <hr style="border-color:var(--border);margin:25px 0">
+
+      <div id="bannerList" class="card-list">Loading banners...</div>
+    </section>
+
+    <!-- PAYMENT SETTINGS -->
+    <section id="settingsTab" class="panel tab hidden">
+      <h2>Payment Settings</h2>
+      <p class="small">These values are saved in Supabase. The public website must read these settings to display updates automatically.</p>
+
+      <form id="settingsForm">
+        <label for="telebirrSetting">TeleBirr account number</label>
+        <input id="telebirrSetting" inputmode="tel" placeholder="TeleBirr number">
+
+        <label for="cbeSetting">CBE account number</label>
+        <input id="cbeSetting" inputmode="numeric" placeholder="CBE account number">
+
+        <label for="supportSetting">Customer support link</label>
+        <input id="supportSetting" type="url" placeholder="https://t.me/...">
+
+        <label for="telegramSetting">Telegram channel link</label>
+        <input id="telegramSetting" type="url" placeholder="https://t.me/...">
+
+        <div class="actions">
+          <button class="primary" id="saveSettingsBtn" type="submit">Save Payment Settings</button>
+          <button class="secondary" type="button" onclick="loadSettings()">Reload</button>
+        </div>
+      </form>
+    </section>
+
+  </section>
+</main>
+
+<footer>
+  FXBOOKSTORE Admin Dashboard · Secure database access powered by Supabase
+</footer>
+
+<script>
+"use strict";
+
+/* =====================================================
+   SUPABASE CONFIGURATION
+   Publishable key is intended for browser use.
+   Never put a service-role or secret key in this file.
+===================================================== */
+
+const SUPABASE_URL = "https://mhgckebonepjcijlzyao.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_D-iA1Y-_GpaZKWRjn3XvwQ_fC4D29Kp";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+const BUCKET = "fxbookstore-images";
+
+let currentUser = null;
+let booksCache = [];
+let bannersCache = [];
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function el(id) {
+  return document.getElementById(id);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, function (ch) {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[ch];
+  });
+}
+
+function showStatus(targetId, message, type = "info") {
+  const target = el(targetId);
+  if (!target) return;
+
+  target.innerHTML = "";
+  const div = document.createElement("div");
+  div.className = "status " + type;
+  div.textContent = message;
+  target.appendChild(div);
+}
+
+function clearStatus(targetId) {
+  if (el(targetId)) el(targetId).innerHTML = "";
+}
+
+function setBusy(buttonId, busy, busyText = "Please wait...") {
+  const button = el(buttonId);
+  if (!button) return;
+
+  if (busy) {
+    button.dataset.originalText = button.textContent;
+    button.textContent = busyText;
+    button.disabled = true;
+  } else {
+    button.textContent = button.dataset.originalText || button.textContent;
+    button.disabled = false;
+  }
+}
+
+function errorMessage(error) {
+  return error?.message || String(error || "Unknown error");
+}
+
+function normalizeImageUrl(value) {
+  const raw = String(value || "").trim();
+
+  if (!raw) return "";
+
+  if (/^(https?:\/\/|data:image\/)/i.test(raw)) {
+    return raw;
+  }
+
+  // Legacy images are stored beside index.html in the website repository.
+  return raw;
+}
+
+function validExternalUrl(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+
+  try {
+    const parsed = new URL(raw);
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+      throw new Error("Only HTTP and HTTPS links are allowed.");
+    }
+    return parsed.href;
+  } catch (error) {
+    throw new Error("Enter a valid link beginning with https://");
+  }
+}
+
+function safeFileName(name) {
+  return String(name || "image")
+    .normalize("NFKD")
+    .replace(/[^a-zA-Z0-9._-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(-100) || "image";
+}
+
+/* =====================================================
+   LOGIN AND ADMIN AUTHORIZATION
+===================================================== */
+
+el("loginForm").addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  clearStatus("loginStatus");
+  setBusy("loginBtn", true, "Signing in...");
+
+  try {
+    const email = el("loginEmail").value.trim();
+    const password = el("loginPassword").value;
+
+    const { data, error } = await db.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) throw error;
+
+    if (!data.user) {
+      throw new Error("Supabase did not return a user.");
+    }
+
+    currentUser = data.user;
+    await verifyAdminAndOpen();
+  } catch (error) {
+    showStatus(
+      "loginStatus",
+      "Login failed: " + errorMessage(error),
+      "error"
+    );
+
+    try {
+      await db.auth.signOut();
+    } catch (_) {}
+  } finally {
+    setBusy("loginBtn", false);
+  }
+});
+
+async function verifyAdminAndOpen() {
+  if (!currentUser) {
+    throw new Error("Please sign in first.");
+  }
+
+  const { data, error } = await db
+    .from("store_admins")
+    .select("user_id")
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(
+      "Could not verify admin access. Check your store_admins RLS policy. " +
+      error.message
+    );
+  }
+
+  if (!data) {
+    await db.auth.signOut();
+    currentUser = null;
+    throw new Error("This account is not authorized as a store administrator.");
+  }
+
+  el("loginScreen").classList.add("hidden");
+  el("appScreen").style.display = "block";
+  el("logoutBtn").classList.remove("hidden");
+
+  showStatus(
+    "globalStatus",
+    "Signed in as " + currentUser.email,
+    "ok"
+  );
+
+  await Promise.all([
+    loadBooks(),
+    loadBanners(),
+    loadSettings()
+  ]);
+}
+
+async function logout() {
+  try {
+    await db.auth.signOut();
+  } finally {
+    currentUser = null;
+    el("appScreen").style.display = "none";
+    el("loginScreen").classList.remove("hidden");
+    el("logoutBtn").classList.add("hidden");
+    clearStatus("globalStatus");
+    showStatus("loginStatus", "You have signed out.", "ok");
+  }
+}
+
+db.auth.onAuthStateChange(function (event, session) {
+  if (event === "SIGNED_OUT") {
+    currentUser = null;
+  }
+});
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+document.querySelectorAll(".nav button").forEach(function (button) {
+  button.addEventListener("click", function () {
+    document.querySelectorAll(".nav button").forEach(function (item) {
+      item.classList.remove("active");
+    });
+
+    document.querySelectorAll(".tab").forEach(function (tab) {
+      tab.classList.add("hidden");
+    });
+
+    button.classList.add("active");
+    el(button.dataset.tab).classList.remove("hidden");
+  });
+});
+
+/* =====================================================
+   IMAGE UPLOAD
+===================================================== */
+
+async function uploadImage(file, folder) {
+  if (!file) return "";
+
+  if (!currentUser) {
+    throw new Error("Please sign in before uploading images.");
+  }
+
+  const allowed = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/gif"
+  ];
+
+  if (!allowed.includes(file.type)) {
+    throw new Error("Choose a JPG, PNG, WebP, or GIF image.");
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error("Image size must be 5 MB or smaller.");
+  }
+
+  const path =
+    folder + "/" +
+    Date.now() + "-" +
+    crypto.randomUUID() + "-" +
+    safeFileName(file.name);
+
+  const { data, error } = await db.storage
+    .from(BUCKET)
+    .upload(path, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file.type
+    });
+
+  if (error) throw error;
+
+  const { data: publicData } = db.storage
+    .from(BUCKET)
+    .getPublicUrl(data.path);
+
+  if (!publicData?.publicUrl) {
+    throw new Error("Upload completed, but no public image URL was returned.");
+  }
+
+  return publicData.publicUrl;
+}
+
+/* =====================================================
+   BOOKS: READ
+===================================================== */
+
+async function loadBooks() {
+  el("booksTable").innerHTML =
+    '<tr><td colspan="5">Loading books...</td></tr>';
+
+  const { data, error } = await db
+    .from("books")
+    .select("*")
+    .order("id", { ascending: true });
+
+  if (error) {
+    el("booksTable").innerHTML =
+      '<tr><td colspan="5">Could not load books.</td></tr>';
+
+    showStatus(
+      "globalStatus",
+      "Book loading failed: " + errorMessage(error),
+      "error"
+    );
+    return;
+  }
+
+  booksCache = data || [];
+  renderBooks();
+  updateStats();
+}
+
+function renderBooks() {
+  const query = el("bookSearch").value.trim().toLowerCase();
+
+  const filtered = booksCache.filter(function (book) {
+    return String(book.title || "").toLowerCase().includes(query);
+  });
+
+  if (!filtered.length) {
+    el("booksTable").innerHTML =
+      '<tr><td colspan="5">No books found.</td></tr>';
+    return;
+  }
+
+  el("booksTable").innerHTML = filtered.map(function (book) {
+    const image = normalizeImageUrl(book.image_url);
+    const status = book.is_active
+      ? '<span class="badge">Active</span>'
+      : '<span class="badge off">Hidden</span>';
+
+    return `
+      <tr>
+        <td>
+          ${image
+            ? `<img class="book-thumb" src="${escapeHtml(image)}" alt="" loading="lazy">`
+            : "—"}
+        </td>
+        <td>
+          <strong>${escapeHtml(book.title)}</strong>
+          <div class="small">${escapeHtml(book.category || "other")}</div>
+        </td>
+        <td>${escapeHtml(book.price)} ETB</td>
+        <td>${status}</td>
+        <td>
+          <div class="actions">
+            <button class="secondary" onclick="editBook(${Number(book.id)})">Edit</button>
+            <button class="danger" onclick="deleteBook(${Number(book.id)})">Delete</button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+el("bookSearch").addEventListener("input", renderBooks);
+
+/* =====================================================
+   BOOKS: CREATE AND UPDATE
+===================================================== */
+
+el("bookForm").addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  setBusy("saveBookBtn", true, "Saving...");
+
+  try {
+    const id = el("bookId").value;
+    const title = el("bookTitle").value.trim();
+    const price = Number(el("bookPrice").value);
+
+    if (!title) throw new Error("Enter a book title.");
+    if (!Number.isFinite(price) || price < 0) {
+      throw new Error("Enter a valid price.");
+    }
+
+    let imageUrl = el("bookImageUrl").value.trim();
+    const imageFile = el("bookImage").files[0];
+
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile, "books");
+    }
+
+    const payload = {
+      title: title,
+      price: price,
+      image_url: imageUrl || null,
+      category: el("bookCategory").value,
+      description: el("bookDescription").value.trim(),
+      is_active: el("bookActive").checked
+    };
+
+    let result;
+
+    if (id) {
+      result = await db
+        .from("books")
+        .update(payload)
+        .eq("id", Number(id))
+        .select()
+        .single();
+    } else {
+      result = await db
+        .from("books")
+        .insert(payload)
+        .select()
+        .single();
+    }
+
+    if (result.error) throw result.error;
+
+    resetBookForm();
+    await loadBooks();
+
+    showStatus(
+      "globalStatus",
+      id ? "Book updated successfully." : "New book added successfully.",
+      "ok"
+    );
+  } catch (error) {
+    showStatus(
+      "globalStatus",
+      "Could not save book: " + errorMessage(error),
+      "error"
+    );
+  } finally {
+    setBusy("saveBookBtn", false);
+  }
+});
+
+function editBook(id) {
+  const book = booksCache.find(function (item) {
+    return Number(item.id) === Number(id);
+  });
+
+  if (!book) return;
+
+  el("bookId").value = book.id;
+  el("bookTitle").value = book.title || "";
+  el("bookPrice").value = book.price ?? 0;
+  el("bookCategory").value = book.category || "other";
+  el("bookDescription").value = book.description || "";
+  el("bookImageUrl").value = book.image_url || "";
+  el("bookImage").value = "";
+  el("bookActive").checked = book.is_active !== false;
+  el("saveBookBtn").textContent = "Update Book";
+
+  el("bookForm").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+function resetBookForm() {
+  el("bookForm").reset();
+  el("bookId").value = "";
+  el("bookActive").checked = true;
+  el("saveBookBtn").textContent = "Save Book";
+}
+
+async function deleteBook(id) {
+  const book = booksCache.find(function (item) {
+    return Number(item.id) === Number(id);
+  });
+
+  if (!book) return;
+
+  if (!confirm('Delete "' + book.title + '" permanently?')) return;
+
+  try {
+    const { error } = await db
+      .from("books")
+      .delete()
+      .eq("id", Number(id));
+
+    if (error) throw error;
+
+    await loadBooks();
+    showStatus("globalStatus", "Book deleted successfully.", "ok");
+  } catch (error) {
+    showStatus(
+      "globalStatus",
+      "Could not delete book: " + errorMessage(error),
+      "error"
+    );
+  }
+}
+
+function updateStats() {
+  el("totalBooks").textContent = booksCache.length;
+  el("activeBooks").textContent = booksCache.filter(function (book) {
+    return book.is_active;
+  }).length;
+  el("totalBanners").textContent = bannersCache.length;
+}
+
+/* =====================================================
+   BANNERS: READ
+===================================================== */
+
+async function loadBanners() {
+  el("bannerList").textContent = "Loading banners...";
+
+  const { data, error } = await db
+    .from("banners")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) {
+    el("bannerList").textContent = "Could not load banners.";
+    showStatus(
+      "globalStatus",
+      "Banner loading failed: " + errorMessage(error),
+      "error"
+    );
+    return;
+  }
+
+  bannersCache = data || [];
+  renderBanners();
+  updateStats();
+}
+
+function renderBanners() {
+  if (!bannersCache.length) {
+    el("bannerList").textContent = "No banners yet. Add one above.";
+    return;
+  }
+
+  el("bannerList").innerHTML = bannersCache.map(function (banner) {
+    const image = normalizeImageUrl(banner.image_url);
+
+    return `
+      <article class="banner-card">
+        ${image
+          ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">`
+          : ""}
+        <h3>${escapeHtml(banner.title)}</h3>
+        <p class="small">${banner.is_active ? "Active" : "Hidden"}</p>
+        ${banner.link_url
+          ? `<p class="small">${escapeHtml(banner.link_url)}</p>`
+          : ""}
+        <div class="actions">
+          <button class="secondary" onclick="editBanner(${Number(banner.id)})">Edit</button>
+          <button class="secondary" onclick="toggleBanner(${Number(banner.id)})">
+            ${banner.is_active ? "Hide" : "Activate"}
+          </button>
+          <button class="danger" onclick="deleteBanner(${Number(banner.id)})">Delete</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+/* =====================================================
+   BANNERS: CREATE AND UPDATE
+===================================================== */
+
+el("bannerForm").addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  setBusy("saveBannerBtn", true, "Saving...");
+
+  try {
+    const id = el("bannerId").value;
+    const title = el("bannerTitle").value.trim();
+
+    if (!title) throw new Error("Enter a banner title.");
+
+    let imageUrl = el("bannerImageUrl").value.trim();
+    const imageFile = el("bannerImage").files[0];
+
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile, "banners");
+    }
+
+    const link = validExternalUrl(el("bannerLink").value);
+
+    const payload = {
+      title: title,
+      image_url: imageUrl || null,
+      link_url: link || null,
+      is_active: el("bannerActive").checked
+    };
+
+    let result;
+
+    if (id) {
+      result = await db
+        .from("banners")
+        .update(payload)
+        .eq("id", Number(id))
+        .select()
+        .single();
+    } else {
+      result = await db
+        .from("banners")
+        .insert(payload)
+        .select()
+        .single();
+    }
+
+    if (result.error) throw result.error;
+
+    resetBannerForm();
+    await loadBanners();
+
+    showStatus(
+      "globalStatus",
+      id ? "Banner updated successfully." : "Banner created successfully.",
+      "ok"
+    );
+  } catch (error) {
+    showStatus(
+      "globalStatus",
+      "Could not save banner: " + errorMessage(error),
+      "error"
+    );
+  } finally {
+    setBusy("saveBannerBtn", false);
+  }
+});
+
+function editBanner(id) {
+  const banner = bannersCache.find(function (item) {
+    return Number(item.id) === Number(id);
+  });
+
+  if (!banner) return;
+
+  el("bannerId").value = banner.id;
+  el("bannerTitle").value = banner.title || "";
+  el("bannerLink").value = banner.link_url || "";
+  el("bannerImageUrl").value = banner.image_url || "";
+  el("bannerImage").value = "";
+  el("bannerActive").checked = banner.is_active !== false;
+  el("saveBannerBtn").textContent = "Update Banner";
+
+  el("bannerForm").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+function resetBannerForm() {
+  el("bannerForm").reset();
+  el("bannerId").value = "";
+  el("bannerActive").checked = true;
+  el("saveBannerBtn").textContent = "Save Banner";
+}
+
+async function toggleBanner(id) {
+  const banner = bannersCache.find(function (item) {
+    return Number(item.id) === Number(id);
+  });
+
+  if (!banner) return;
+
+  try {
+    const { error } = await db
+      .from("banners")
+      .update({ is_active: !banner.is_active })
+      .eq("id", Number(id));
+
+    if (error) throw error;
+
+    await loadBanners();
+    showStatus("globalStatus", "Banner status updated.", "ok");
+  } catch (error) {
+    showStatus(
+      "globalStatus",
+      "Could not update banner: " + errorMessage(error),
+      "error"
+    );
+  }
+}
+
+async function deleteBanner(id) {
+  const banner = bannersCache.find(function (item) {
+    return Number(item.id) === Number(id);
+  });
+
+  if (!banner) return;
+  if (!confirm('Delete banner "' + banner.title + '"?')) return;
+
+  try {
+    const { error } = await db
+      .from("banners")
+      .delete()
+      .eq("id", Number(id));
+
+    if (error) throw error;
+
+    await loadBanners();
+    showStatus("globalStatus", "Banner deleted.", "ok");
+  } catch (error) {
+    showStatus(
+      "globalStatus",
+      "Could not delete banner: " + errorMessage(error),
+      "error"
+    );
+  }
+}
+
+/* =====================================================
+   PAYMENT SETTINGS
+===================================================== */
+
+async function loadSettings() {
+  const { data, error } = await db
+    .from("store_settings")
+    .select("setting_key, setting_value");
+
+  if (error) {
+    showStatus(
+      "globalStatus",
+      "Could not load payment settings: " + errorMessage(error),
+      "error"
+    );
+    return;
+  }
+
+  const values = {};
+
+  (data || []).forEach(function (row) {
+    values[row.setting_key] = row.setting_value || "";
+  });
+
+  el("telebirrSetting").value =
+    values.telebirr || values.telebirr_number || "";
+
+  el("cbeSetting").value =
+    values.cbe || values.cbe_account || "";
+
+  el("supportSetting").value =
+    values.support_url || "https://t.me/forexbooklibrarysupport";
+
+  el("telegramSetting").value =
+    values.telegram_url || "https://t.me/fxbookstore";
+}
+
+el("settingsForm").addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  setBusy("saveSettingsBtn", true, "Saving...");
+
+  try {
+    const settings = [
+      {
+        setting_key: "telebirr",
+        setting_value: el("telebirrSetting").value.trim()
+      },
+      {
+        setting_key: "cbe",
+        setting_value: el("cbeSetting").value.trim()
+      },
+      {
+        setting_key: "support_url",
+        setting_value: validExternalUrl(el("supportSetting").value)
+      },
+      {
+        setting_key: "telegram_url",
+        setting_value: validExternalUrl(el("telegramSetting").value)
+      }
+    ];
+
+    const { error } = await db
+      .from("store_settings")
+      .upsert(settings, { onConflict: "setting_key" });
+
+    if (error) throw error;
+
+    showStatus(
+      "globalStatus",
+      "Payment and contact settings saved successfully.",
+      "ok"
+    );
+  } catch (error) {
+    showStatus(
+      "globalStatus",
+      "Could not save settings: " + errorMessage(error),
+      "error"
+    );
+  } finally {
+    setBusy("saveSettingsBtn", false);
+  }
+});
+
+/* =====================================================
+   RESTORE EXISTING SESSION
+===================================================== */
+
+async function restoreSession() {
+  try {
+    const { data, error } = await db.auth.getSession();
+
+    if (error) throw error;
+
+    if (!data.session?.user) return;
+
+    currentUser = data.session.user;
+    await verifyAdminAndOpen();
+  } catch (error) {
+    currentUser = null;
+    showStatus(
+      "loginStatus",
+      "Session check: " + errorMessage(error),
+      "error"
+    );
+  }
+}
+
+restoreSession();
+</script>
+
+</body>
+</html>
