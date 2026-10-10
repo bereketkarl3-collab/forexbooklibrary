@@ -3,261 +3,1986 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101827">
-  <meta name="description" content="Forex PDF Library — trading ebooks and study guides.">
-  <title>Forex PDF Library | Trading Ebooks</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Discover forex trading books at FXBOOKSTORE.">
+
+  <title>FXBOOKSTORE | Forex Book Library</title>
+
+  <style>
+    :root {
+      --bg: #090909;
+      --surface: #151515;
+      --surface2: #202020;
+      --gold: #d8ad55;
+      --gold-light: #f3d48a;
+      --text: #f5f5f5;
+      --muted: #a6a6a6;
+      --border: #303030;
+      --danger: #ff7373;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .announcement {
+      padding: 9px 12px;
+      background: #050505;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      font-size: 11px;
+      color: var(--gold-light);
+      letter-spacing: 1px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(9, 9, 9, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      min-height: 72px;
+      margin: auto;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      color: var(--gold);
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .cart-button,
+    .primary-button {
+      padding: 10px 14px;
+      color: #111;
+      background: var(--gold);
+      border: 0;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .cart-button:hover,
+    .primary-button:hover {
+      background: var(--gold-light);
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 20px 45px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #5d4925;
+      border-radius: 20px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      margin: 20px 0;
+      font-size: clamp(35px, 6vw, 64px);
+      line-height: 1.08;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      max-width: 580px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .secondary-button {
+      display: inline-block;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .secondary-button:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .hero-card {
+      min-height: 260px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid #514124;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top right, #46371b, transparent 65%),
+        var(--surface);
+    }
+
+    .hero-symbol {
+      color: var(--gold);
+      font-size: 60px;
+    }
+
+    .hero-card p {
+      font-size: 13px;
+    }
+
+    .stats {
+      max-width: 1160px;
+      margin: 0 auto 25px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--gold);
+      font-size: 22px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px 55px;
+    }
+
+    .section-heading {
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 35px);
+    }
+
+    .section-heading p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 180px;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .search-input,
+    .sort-select {
+      width: 100%;
+      min-width: 0;
+      padding: 13px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+    }
+
+    .search-input:focus,
+    .sort-select:focus {
+      border-color: var(--gold);
+    }
+
+    .categories {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0 16px;
+    }
+
+    .category-button {
+      flex-shrink: 0;
+      padding: 8px 13px;
+      color: #ddd;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .category-button.active {
+      color: #111;
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .result-line {
+      margin-bottom: 15px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* BOOK GRID */
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      width: 100%;
+      gap: 17px;
+      align-items: start;
+    }
+
+    .book-card {
+      min-width: 0;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .book-card:hover {
+      transform: translateY(-3px);
+      border-color: #80642f;
+    }
+
+    .book-cover {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: #202020;
+    }
+
+    .book-cover img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .cover-placeholder {
+      width: 100%;
+      height: 100%;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      background:
+        radial-gradient(circle at top, #4c3a1d, transparent 65%),
+        linear-gradient(145deg, #252525, #090909);
+    }
+
+    .cover-placeholder .icon {
+      margin-bottom: 12px;
+      color: var(--gold);
+      font-size: 40px;
+    }
+
+    .cover-placeholder strong {
+      overflow-wrap: anywhere;
+      font-size: 13px;
+    }
+
+    .cover-placeholder small {
+      margin-top: 12px;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .book-info {
+      min-width: 0;
+      padding: 12px;
+    }
+
+    .book-category {
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .book-title {
+      min-height: 40px;
+      margin: 7px 0;
+      font-size: 13px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .book-description {
+      min-height: 32px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .book-price {
+      margin-bottom: 12px;
+      color: var(--gold-light);
+      font-size: 16px;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .book-actions {
+      display: grid;
+      gap: 8px;
+    }
+
+    .book-actions button {
+      width: 100%;
+      min-width: 0;
+      padding: 9px 6px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .buy-button {
+      color: #111;
+      background: var(--gold);
+      border: 0;
+    }
+
+    .add-button {
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
+    }
+
+    .add-button:hover {
+      border-color: var(--gold);
+    }
+
+    .message-box {
+      margin: 20px 0;
+      padding: 20px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .message-box.error {
+      color: #ffaaaa;
+      border-color: #713030;
+    }
+
+    .banner-section {
+      max-width: 1160px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    .banner {
+      display: none;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .banner img {
+      display: block;
+      width: 100%;
+      max-height: 230px;
+      object-fit: cover;
+    }
+
+    .banner-title {
+      padding: 12px;
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    .community {
+      border-top: 1px solid var(--border);
+      background: #101010;
+    }
+
+    .social-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: inline-block;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .social-link:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    footer {
+      padding: 32px 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    footer .logo {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    /* MODALS */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.83);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 520px;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 22px;
+      background: #151515;
+      border: 1px solid #5a4828;
+      border-radius: 15px;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-header h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .close-button {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+      color: white;
+      background: #292929;
+      border: 0;
+      border-radius: 50%;
+      font-size: 22px;
+    }
+
+    .selected-book {
+      margin: 12px 0 20px;
+      padding: 14px;
+      background: #202020;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+    }
+
+    .selected-book strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .selected-book span {
+      color: var(--gold-light);
+      font-weight: bold;
+    }
+
+    .payment-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .payment-card {
+      min-width: 0;
+      padding: 15px;
+      background: #202020;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .payment-card h3 {
+      margin-top: 0;
+      color: var(--gold);
+      font-size: 16px;
+    }
+
+    .account-number {
+      padding: 10px;
+      margin: 10px 0;
+      color: white;
+      background: #090909;
+      border: 1px dashed #68532e;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .copy-button {
+      width: 100%;
+      padding: 9px 5px;
+      color: #111;
+      background: var(--gold);
+      border: 0;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .modal-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .modal-actions button,
+    .modal-actions a {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .telegram-button {
+      color: #111;
+      background: var(--gold);
+      border: 0;
+    }
+
+    .continue-button {
+      color: white;
+      background: transparent;
+      border: 1px solid var(--border);
+    }
+
+    .cart-list {
+      padding: 0;
+      list-style: none;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item-title {
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .cart-item-price {
+      color: var(--gold-light);
+      font-size: 12px;
+    }
+
+    .remove-button {
+      padding: 5px;
+      color: var(--danger);
+      background: transparent;
+      border: 0;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 0;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 1000px) {
+      .book-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .header-inner {
+        padding: 12px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      nav {
+        gap: 8px;
+      }
+
+      nav a {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 38px;
+      }
+
+      .hero-card {
+        min-height: 190px;
+      }
+
+      /* TWO BOOKS PER ROW ON PHONES */
+      .book-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        gap: 12px;
+        align-items: start;
+      }
+
+      .book-cover {
+        height: 215px;
+      }
+
+      .book-info {
+        padding: 10px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .payment-options {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        padding: 0 12px;
+        gap: 8px;
+      }
+
+      .stat {
+        padding: 12px 5px;
+      }
+
+      .stat strong {
+        font-size: 18px;
+      }
+
+      .stat span {
+        font-size: 9px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .book-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .book-cover {
+        height: 175px;
+      }
+
+      .book-info {
+        padding: 8px;
+      }
+
+      .book-title {
+        font-size: 12px;
+      }
+
+      .book-price {
+        font-size: 14px;
+      }
+
+      .book-actions button {
+        font-size: 11px;
+      }
+
+      .cart-button {
+        padding: 8px;
+        font-size: 11px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <a class="brand" href="#home">
-      <span class="brand-mark">FX</span>
-      <span>
-        Forex <b>PDF Library</b>
-        <small>LEARN • STUDY • IMPROVE</small>
-      </span>
-    </a>
+  <div class="announcement">
+    FXBOOKSTORE — YOUR JOURNEY TO BETTER TRADING KNOWLEDGE
+  </div>
 
-    <a class="telegram-top"
-       href="https://t.me/fxbookstore"
-       target="_blank">
-      Telegram ↗
-    </a>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="#home">FX<span>BOOKSTORE</span></a>
+
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#books">Books</a>
+
+        <button class="cart-button" id="openCartButton" type="button">
+          🛒 Cart (<span id="cartCount">0</span>)
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <main id="home">
+  <main>
+    <section class="hero" id="home">
+      <div>
+        <span class="eyebrow">THE TRADER'S LIBRARY</span>
 
-    <section class="hero">
-      <div class="hero-copy">
-        <span class="eyebrow">YOUR TRADING STUDY LIBRARY</span>
-
-        <h1>Build your trading knowledge.</h1>
+        <h1>
+          Build Your Trading Knowledge.<br>
+          <span>One Book at a Time.</span>
+        </h1>
 
         <p>
-          Explore forex ebooks, strategies, market concepts,
-          and trading psychology guides in one place.
+          Explore forex books about technical analysis, trading
+          psychology, risk management, price action, and more.
+          Learn at your own pace and keep improving.
         </p>
 
-        <a class="hero-button" href="#library">
-          Explore the library ↓
-        </a>
+        <div class="hero-actions">
+          <a class="primary-button" href="#books">Explore Books →</a>
 
-        <div class="trust-row">
-          <span>✓ Study resources</span>
-          <span>✓ Simple ordering</span>
-          <span>✓ Telegram support</span>
+          <a class="secondary-button"
+             href="https://t.me/fxbookstore"
+             target="_blank"
+             rel="noopener noreferrer">
+            Join Our Telegram
+          </a>
         </div>
       </div>
 
-      <div class="hero-art">
-        <div class="art-label">
-          MARKET STUDY <span>01 / FX</span>
-        </div>
-
-        <div class="chart-grid">
-          <i class="candle up c1"></i>
-          <i class="candle down c2"></i>
-          <i class="candle up c3"></i>
-          <i class="candle up c4"></i>
-          <i class="candle down c5"></i>
-          <i class="candle up c6"></i>
-          <i class="candle down c7"></i>
-          <i class="candle up c8"></i>
-          <div class="chart-line"></div>
-        </div>
-
-        <div class="art-bottom">
-          <span>PLAN YOUR TRADE</span>
-          <strong>KNOWLEDGE FIRST.</strong>
-        </div>
+      <div class="hero-card">
+        <div class="hero-symbol">₿</div>
+        <h2>Learn. Analyze. Improve.</h2>
+        <p>
+          Your online library for studying the financial markets
+          and developing your trading knowledge.
+        </p>
       </div>
     </section>
 
     <section class="stats">
-      <div>
-        <strong>35</strong>
-        <span>Study resources</span>
+      <div class="stat">
+        <strong id="bookCount">—</strong>
+        <span>BOOKS AVAILABLE</span>
       </div>
 
-      <div>
-        <strong>Forex</strong>
-        <span>Focused topics</span>
-      </div>
-
-      <div>
+      <div class="stat">
         <strong>ETB</strong>
-        <span>Prices in birr</span>
+        <span>LOCAL PAYMENT</span>
+      </div>
+
+      <div class="stat">
+        <strong>24/7</strong>
+        <span>ONLINE CATALOG</span>
       </div>
     </section>
 
-    <section class="library-section" id="library">
+    <div class="banner-section" id="bannerSection"></div>
 
+    <section class="section" id="books">
       <div class="section-heading">
-        <div>
-          <span class="eyebrow">THE COLLECTION</span>
-          <h2>Explore the library</h2>
-          <p>Find a guide for the topic you want to study.</p>
-        </div>
-
-        <span class="live-badge">
-          <i></i> Library catalog
-        </span>
+        <h2>Explore Our Library</h2>
+        <p>Find the books that match your trading interests.</p>
       </div>
 
       <div class="toolbar">
-        <label class="searchbox">
-          <span>⌕</span>
-          <input
-            id="searchInput"
-            type="search"
-            placeholder="Search ebooks or topics..."
-            aria-label="Search ebooks">
-        </label>
+        <input
+          class="search-input"
+          id="searchInput"
+          type="search"
+          placeholder="Search books or topics..."
+          aria-label="Search books"
+        >
 
-        <select id="sortSelect" aria-label="Sort ebooks">
-          <option value="featured">Featured order</option>
-          <option value="low">Price: low to high</option>
-          <option value="high">Price: high to low</option>
-          <option value="az">Name: A to Z</option>
+        <select class="sort-select" id="sortSelect" aria-label="Sort books">
+          <option value="newest">Newest first</option>
+          <option value="title">Title: A–Z</option>
+          <option value="price-low">Price: Low to high</option>
+          <option value="price-high">Price: High to low</option>
         </select>
       </div>
 
-      <div class="filters" id="filters">
-        <button class="filter active" data-category="All">All books</button>
-        <button class="filter" data-category="SMC & ICT">SMC &amp; ICT</button>
-        <button class="filter" data-category="Price Action">Price Action</button>
-        <button class="filter" data-category="MSNR">MSNR</button>
-        <button class="filter" data-category="Psychology">Psychology</button>
-        <button class="filter" data-category="Other">Other guides</button>
-      </div>
+      <div class="categories" id="categories"></div>
 
-      <div class="result-line">
-        <span id="resultCount">Showing 35 resources</span>
-        <span>Prices in Ethiopian birr (ETB)</span>
-      </div>
+      <p class="result-line" id="resultLine">Loading books...</p>
 
-      <div class="book-grid" id="gallery"></div>
+      <div class="book-grid" id="bookGrid"></div>
 
-      <div class="empty-state" id="emptyState" hidden>
-        <strong>No books found</strong>
-        <p>Try another search or choose All books.</p>
+      <div class="message-box" id="statusMessage">
+        Connecting to FXBOOKSTORE...
       </div>
     </section>
 
-    <section class="how-section">
-      <span class="eyebrow">HOW TO ORDER</span>
-      <h2>Three simple steps.</h2>
+    <section class="community">
+      <div class="section">
+        <div class="section-heading">
+          <h2>Join Our Community</h2>
+          <p>Follow us for new books and store updates.</p>
+        </div>
 
-      <div class="steps">
-        <article>
-          <span>01</span>
-          <h3>Choose a book</h3>
-          <p>Browse the catalog and open the ebook you want.</p>
-        </article>
+        <div class="social-grid">
+          <a class="social-link"
+             href="https://t.me/fxbookstore"
+             target="_blank"
+             rel="noopener noreferrer">
+            Telegram Channel
+          </a>
 
-        <article>
-          <span>02</span>
-          <h3>Make payment</h3>
-          <p>Use the payment details shown in the order window.</p>
-        </article>
+          <a class="social-link"
+             href="https://t.me/fxbookstorechat"
+             target="_blank"
+             rel="noopener noreferrer">
+            Telegram Community
+          </a>
 
-        <article>
-          <span>03</span>
-          <h3>Contact support</h3>
-          <p>Send your payment confirmation to Telegram support.</p>
-        </article>
-      </div>
+          <a class="social-link"
+             href="https://www.tiktok.com/@fxbookstore"
+             target="_blank"
+             rel="noopener noreferrer">
+            TikTok
+          </a>
 
-      <p class="notice">
-        Verify payment details with support before sending money.
-        Only purchase resources you have permission to access.
-      </p>
-    </section>
+          <a class="social-link"
+             href="https://youtube.com/@fxbookstore"
+             target="_blank"
+             rel="noopener noreferrer">
+            YouTube
+          </a>
 
-    <section class="contact-section">
-      <div>
-        <span class="eyebrow">NEED HELP?</span>
-        <h2>We're here to help.</h2>
-        <p>Questions about a book or order? Contact us on Telegram.</p>
-      </div>
-
-      <div class="contact-actions">
-        <a href="https://t.me/forexbooklibrarysupport"
-           target="_blank"
-           class="primary-button">
-          Message support ↗
-        </a>
-
-        <a href="https://t.me/fxbookstorechat"
-           target="_blank"
-           class="secondary-button">
-          Community chat ↗
-        </a>
+          <a class="social-link"
+             href="https://t.me/forexbooklibrarysupport"
+             target="_blank"
+             rel="noopener noreferrer">
+            Customer Support
+          </a>
+        </div>
       </div>
     </section>
-
   </main>
 
-  <footer class="footer">
-    <a class="footer-brand" href="#home">
-      FX <b>Forex PDF Library</b>
-    </a>
-
-    <span>Study with a plan. Trade with discipline.</span>
-
-    <a href="https://t.me/fxbookstore" target="_blank">
-      Telegram channel ↗
-    </a>
-
-    <small>
-      © <span id="year"></span> Forex PDF Library · @B_BEK27
-    </small>
+  <footer>
+    <a class="logo" href="#home">FXBOOKSTORE</a>
+    <p>Learn more. Trade thoughtfully. Keep improving.</p>
+    <p>© <span id="currentYear"></span> FXBOOKSTORE</p>
   </footer>
 
-  <div class="modal-backdrop" id="modalOverlay" hidden></div>
+  <!-- PAYMENT MODAL -->
 
-  <section class="modal"
-           id="paymentModal"
-           role="dialog"
-           aria-modal="true"
-           aria-labelledby="modalTitle"
-           hidden>
+  <div class="modal"
+       id="paymentModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="paymentTitle">
 
-    <button class="modal-close" id="closeModal">×</button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="paymentTitle">Complete Your Payment</h2>
 
-    <span class="eyebrow">BOOK DETAILS</span>
+        <button class="close-button"
+                id="closePaymentButton"
+                type="button"
+                aria-label="Close payment window">×</button>
+      </div>
 
-    <h2 id="modalTitle">Book title</h2>
+      <div class="selected-book" id="selectedBookDetails"></div>
 
-    <p class="modal-price" id="modalPrice"></p>
+      <p><strong>Choose a payment method:</strong></p>
 
-    <p class="modal-description" id="modalDescription"></p>
+      <div class="payment-options">
+        <div class="payment-card">
+          <h3>📱 TeleBirr</h3>
+          <div class="account-number" id="modalTelebirr"></div>
 
-    <div class="payment-box">
-      <h3>Payment details</h3>
+          <button class="copy-button"
+                  type="button"
+                  id="copyTelebirr">
+            Copy TeleBirr Number
+          </button>
+        </div>
 
-      <p>
-        <b>TeleBirr:</b>
-        <span>0952819016</span>
+        <div class="payment-card">
+          <h3>🏦 CBE</h3>
+          <div class="account-number" id="modalCBE"></div>
+
+          <button class="copy-button"
+                  type="button"
+                  id="copyCBE">
+            Copy CBE Account
+          </button>
+        </div>
+      </div>
+
+      <p class="small-note">
+        After making your payment, send a screenshot of your payment
+        receipt to our support team. Include the book name and order
+        amount. Your order will be confirmed after the payment is checked.
       </p>
 
-      <p>
-        <b>CBE:</b>
-        <span>1000652843453</span>
-      </p>
+      <div class="modal-actions">
+        <a class="telegram-button"
+           id="sendProofButton"
+           href="https://t.me/forexbooklibrarysupport"
+           target="_blank"
+           rel="noopener noreferrer">
+          📸 Send Payment Screenshot to Support
+        </a>
 
-      <small>Confirm account details with support before paying.</small>
+        <button class="continue-button"
+                id="closePaymentButtonBottom"
+                type="button">
+          Cancel
+        </button>
+      </div>
     </div>
+  </div>
 
-    <a id="supportLink"
-       class="primary-button full-button"
-       href="https://t.me/forexbooklibrarysupport"
-       target="_blank">
-      Contact support on Telegram ↗
-    </a>
-  </section>
+  <!-- CART MODAL -->
 
-  <script src="script.js"></script>
+  <div class="modal"
+       id="cartModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="cartTitle">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="cartTitle">Your Shopping Cart</h2>
+
+        <button class="close-button"
+                id="closeCartButton"
+                type="button"
+                aria-label="Close cart">×</button>
+      </div>
+
+      <ul class="cart-list" id="cartList"></ul>
+
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">ETB 0.00</span>
+      </div>
+
+      <div class="modal-actions">
+        <button class="telegram-button"
+                id="cartCheckoutButton"
+                type="button">
+          Continue to Payment
+        </button>
+
+        <button class="continue-button"
+                id="continueShoppingButton"
+                type="button">
+          Continue Shopping
+        </button>
+      </div>
+
+      <p class="small-note">
+        Payment accounts appear only after you proceed to payment.
+        Payments must be verified by the support team.
+      </p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    "use strict";
+
+    /* SUPABASE CONFIGURATION */
+
+    const SUPABASE_URL =
+      "https://mhgckebonepjcijlzyao.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_D-iA1Y-_GpaZKWRjn3XvwQ_fC4D29Kp";
+
+    const STORAGE_BUCKET = "fxbookstore-images";
+
+    const TELEBIRR_DEFAULT = "0952819016";
+    const CBE_DEFAULT = "1000652843453";
+
+    const TELEGRAM_SUPPORT =
+      "https://t.me/forexbooklibrarysupport";
+
+    const TELEGRAM_PAYMENT_PROOF =
+      "https://t.me/fxbookstorepaymentproof";
+
+    const TELEGRAM_ORDER_CHAT =
+      "https://t.me/fxbookstorechat";
+
+    const GITHUB_BASE =
+      "https://bereketkarl3-collab.github.io/forexbooklibrary/";
+
+    const MAX_BOOKS = 100;
+
+    /* APPLICATION STATE */
+
+    let supabaseClient = null;
+    let allBooks = [];
+    let activeCategory = "all";
+    let cart = [];
+    let storeSettings = {};
+    let currentPaymentBooks = [];
+
+    /* HELPERS */
+
+    function byId(id) {
+      return document.getElementById(id);
+    }
+
+    function cleanText(value) {
+      return String(value ?? "").trim();
+    }
+
+    function formatPrice(value) {
+      const price = Number(value);
+
+      if (!Number.isFinite(price)) {
+        return "Price on request";
+      }
+
+      return "ETB " + price.toLocaleString("en-ET", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function bookTitle(book) {
+      return cleanText(book.title) || "Untitled Book";
+    }
+
+    function bookCategory(book) {
+      return cleanText(book.category) || "General";
+    }
+
+    function bookPrice(book) {
+      const value = Number(book.price);
+
+      return Number.isFinite(value) && value >= 0
+        ? value
+        : 0;
+    }
+
+    function safeHttpURL(value) {
+      try {
+        const url = new URL(String(value), window.location.href);
+
+        if (url.protocol === "https:" || url.protocol === "http:") {
+          return url.href;
+        }
+
+        return "";
+      } catch (error) {
+        return "";
+      }
+    }
+
+    /* BOOK IMAGE URLS */
+
+    function getBookImageURL(book) {
+      const raw = cleanText(book.image_url);
+
+      if (!raw) {
+        return "";
+      }
+
+      if (/^https?:\/\//i.test(raw)) {
+        return safeHttpURL(raw);
+      }
+
+      const normalized = raw.replace(/^\/+/, "");
+
+      if (normalized.startsWith(STORAGE_BUCKET + "/")) {
+        const objectPath = normalized.substring(
+          STORAGE_BUCKET.length + 1
+        );
+
+        const encodedPath = objectPath.split("/")
+          .map(function (part) {
+            return encodeURIComponent(part);
+          })
+          .join("/");
+
+        return SUPABASE_URL +
+          "/storage/v1/object/public/" +
+          STORAGE_BUCKET + "/" + encodedPath;
+      }
+
+      return safeHttpURL(
+        GITHUB_BASE +
+        normalized.split("/")
+          .map(function (part) {
+            return encodeURIComponent(part);
+          })
+          .join("/")
+      );
+    }
+
+    function createPlaceholder(title) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "cover-placeholder";
+
+      const icon = document.createElement("div");
+      icon.className = "icon";
+      icon.textContent = "📘";
+
+      const name = document.createElement("strong");
+      name.textContent = title;
+
+      const brand = document.createElement("small");
+      brand.textContent = "FXBOOKSTORE";
+
+      wrapper.appendChild(icon);
+      wrapper.appendChild(name);
+      wrapper.appendChild(brand);
+
+      return wrapper;
+    }
+
+    function createBookCover(book) {
+      const cover = document.createElement("div");
+      cover.className = "book-cover";
+
+      const title = bookTitle(book);
+      const url = getBookImageURL(book);
+
+      if (!url) {
+        cover.appendChild(createPlaceholder(title));
+        return cover;
+      }
+
+      const image = document.createElement("img");
+
+      image.src = url;
+      image.alt = title + " cover";
+      image.loading = "lazy";
+      image.decoding = "async";
+
+      image.addEventListener("error", function () {
+        image.remove();
+
+        if (!cover.querySelector(".cover-placeholder")) {
+          cover.appendChild(createPlaceholder(title));
+        }
+      }, { once: true });
+
+      cover.appendChild(image);
+
+      return cover;
+    }
+
+    /* BOOK CARDS */
+
+    function createBookCard(book) {
+      const card = document.createElement("article");
+      card.className = "book-card";
+
+      const info = document.createElement("div");
+      info.className = "book-info";
+
+      const category = document.createElement("div");
+      category.className = "book-category";
+      category.textContent = bookCategory(book);
+
+      const title = document.createElement("h3");
+      title.className = "book-title";
+      title.textContent = bookTitle(book);
+
+      const description = document.createElement("div");
+      description.className = "book-description";
+      description.textContent =
+        cleanText(book.description) ||
+        "Explore this book in our trading library.";
+
+      const price = document.createElement("div");
+      price.className = "book-price";
+      price.textContent = formatPrice(book.price);
+
+      const actions = document.createElement("div");
+      actions.className = "book-actions";
+
+      const buyButton = document.createElement("button");
+      buyButton.type = "button";
+      buyButton.className = "buy-button";
+      buyButton.textContent = "Buy Now";
+
+      buyButton.addEventListener("click", function () {
+        buyBook(book.id);
+      });
+
+      const addButton = document.createElement("button");
+      addButton.type = "button";
+      addButton.className = "add-button";
+      addButton.textContent = "Add to Cart";
+
+      addButton.addEventListener("click", function () {
+        addToCart(book.id);
+      });
+
+      actions.appendChild(buyButton);
+      actions.appendChild(addButton);
+
+      info.appendChild(category);
+      info.appendChild(title);
+      info.appendChild(description);
+      info.appendChild(price);
+      info.appendChild(actions);
+
+      card.appendChild(createBookCover(book));
+      card.appendChild(info);
+
+      return card;
+    }
+
+    /* SEARCH AND CATEGORIES */
+
+    function getFilteredBooks() {
+      const search = cleanText(byId("searchInput").value)
+        .toLowerCase();
+
+      const sort = byId("sortSelect").value;
+
+      let books = allBooks.filter(function (book) {
+        const matchesSearch =
+          bookTitle(book).toLowerCase().includes(search) ||
+          bookCategory(book).toLowerCase().includes(search) ||
+          cleanText(book.description).toLowerCase().includes(search);
+
+        const matchesCategory =
+          activeCategory === "all" ||
+          bookCategory(book).toLowerCase() ===
+            activeCategory.toLowerCase();
+
+        return matchesSearch && matchesCategory;
+      });
+
+      if (sort === "title") {
+        books.sort(function (a, b) {
+          return bookTitle(a).localeCompare(bookTitle(b));
+        });
+      } else if (sort === "price-low") {
+        books.sort(function (a, b) {
+          return bookPrice(a) - bookPrice(b);
+        });
+      } else if (sort === "price-high") {
+        books.sort(function (a, b) {
+          return bookPrice(b) - bookPrice(a);
+        });
+      } else {
+        books.sort(function (a, b) {
+          return new Date(b.created_at || 0) -
+            new Date(a.created_at || 0);
+        });
+      }
+
+      return books;
+    }
+
+    function renderBooks() {
+      const grid = byId("bookGrid");
+      const status = byId("statusMessage");
+      const books = getFilteredBooks();
+
+      grid.replaceChildren();
+
+      byId("resultLine").textContent =
+        books.length + " book" +
+        (books.length === 1 ? "" : "s") + " found";
+
+      if (books.length === 0) {
+        status.style.display = "block";
+        status.className = "message-box";
+
+        status.textContent = allBooks.length === 0
+          ? "No active books found. Check your admin panel and make sure your books are marked active."
+          : "No books match your search. Try another title or category.";
+
+        return;
+      }
+
+      status.style.display = "none";
+
+      const fragment = document.createDocumentFragment();
+
+      books.forEach(function (book) {
+        fragment.appendChild(createBookCard(book));
+      });
+
+      grid.appendChild(fragment);
+    }
+
+    function createCategoryButton(label, value) {
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.className = "category-button";
+      button.textContent = label;
+      button.dataset.category = value;
+
+      if (activeCategory.toLowerCase() === value.toLowerCase()) {
+        button.classList.add("active");
+      }
+
+      button.addEventListener("click", function () {
+        activeCategory = value;
+
+        byId("categories")
+          .querySelectorAll(".category-button")
+          .forEach(function (item) {
+            item.classList.toggle(
+              "active",
+              item.dataset.category.toLowerCase() ===
+                activeCategory.toLowerCase()
+            );
+          });
+
+        renderBooks();
+      });
+
+      return button;
+    }
+
+    function renderCategories() {
+      const container = byId("categories");
+      container.replaceChildren();
+
+      container.appendChild(
+        createCategoryButton("All Books", "all")
+      );
+
+      const categories = Array.from(
+        new Set(allBooks.map(bookCategory))
+      ).sort(function (a, b) {
+        return a.localeCompare(b);
+      });
+
+      categories.forEach(function (category) {
+        container.appendChild(
+          createCategoryButton(category, category)
+        );
+      });
+    }
+
+    /* SHOPPING CART */
+
+    function findBook(bookId) {
+      return allBooks.find(function (book) {
+        return String(book.id) === String(bookId);
+      });
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem(
+          "fxbookstore_cart",
+          JSON.stringify(cart)
+        );
+      } catch (error) {
+        console.warn("Could not save cart locally.");
+      }
+    }
+
+    function loadCart() {
+      try {
+        const saved = localStorage.getItem("fxbookstore_cart");
+
+        if (saved) {
+          const parsed = JSON.parse(saved);
+
+          if (Array.isArray(parsed)) {
+            cart = parsed.filter(function (item) {
+              return item &&
+                item.id !== undefined &&
+                typeof item.title === "string" &&
+                Number.isFinite(Number(item.price));
+            }).map(function (item) {
+              return {
+                id: item.id,
+                title: item.title,
+                price: Number(item.price),
+                quantity: Math.max(1, Number(item.quantity) || 1)
+              };
+            });
+          }
+        }
+      } catch (error) {
+        cart = [];
+      }
+
+      renderCart();
+    }
+
+    function addToCart(bookId) {
+      const book = findBook(bookId);
+
+      if (!book) {
+        return;
+      }
+
+      const existing = cart.find(function (item) {
+        return String(item.id) === String(bookId);
+      });
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          id: book.id,
+          title: bookTitle(book),
+          price: bookPrice(book),
+          quantity: 1
+        });
+      }
+
+      saveCart();
+      renderCart();
+
+      alert(bookTitle(book) + " added to your cart.");
+    }
+
+    function removeFromCart(bookId) {
+      cart = cart.filter(function (item) {
+        return String(item.id) !== String(bookId);
+      });
+
+      saveCart();
+      renderCart();
+    }
+
+    function renderCart() {
+      const list = byId("cartList");
+      list.replaceChildren();
+
+      const count = cart.reduce(function (sum, item) {
+        return sum + item.quantity;
+      }, 0);
+
+      const total = cart.reduce(function (sum, item) {
+        return sum + item.price * item.quantity;
+      }, 0);
+
+      byId("cartCount").textContent = String(count);
+      byId("cartTotal").textContent = formatPrice(total);
+
+      if (cart.length === 0) {
+        const empty = document.createElement("li");
+        empty.className = "message-box";
+        empty.textContent = "Your cart is empty.";
+        list.appendChild(empty);
+        return;
+      }
+
+      cart.forEach(function (item) {
+        const row = document.createElement("li");
+        row.className = "cart-item";
+
+        const details = document.createElement("div");
+
+        const title = document.createElement("div");
+        title.className = "cart-item-title";
+        title.textContent = item.title + " × " + item.quantity;
+
+        const price = document.createElement("div");
+        price.className = "cart-item-price";
+        price.textContent = formatPrice(
+          item.price * item.quantity
+        );
+
+        details.appendChild(title);
+        details.appendChild(price);
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "remove-button";
+        remove.textContent = "Remove";
+
+        remove.addEventListener("click", function () {
+          removeFromCart(item.id);
+        });
+
+        row.appendChild(details);
+        row.appendChild(remove);
+        list.appendChild(row);
+      });
+    }
+
+    function openCart() {
+      byId("cartModal").classList.add("open");
+    }
+
+    function closeCart() {
+      byId("cartModal").classList.remove("open");
+    }
+
+    /* PAYMENT */
+
+    function getTelebirrNumber() {
+      return cleanText(storeSettings.telebirr_number) ||
+        TELEBIRR_DEFAULT;
+    }
+
+    function getCBEAccount() {
+      return cleanText(storeSettings.cbe_account) ||
+        CBE_DEFAULT;
+    }
+
+    function showPaymentModal(books) {
+      if (!Array.isArray(books) || books.length === 0) {
+        alert("Please select a book before continuing.");
+        return;
+      }
+
+      currentPaymentBooks = books.map(function (book) {
+        return {
+          id: book.id,
+          title: bookTitle(book),
+          price: bookPrice(book),
+          quantity: Math.max(1, Number(book.quantity) || 1)
+        };
+      });
+
+      const total = currentPaymentBooks.reduce(function (sum, item) {
+        return sum + item.price * item.quantity;
+      }, 0);
+
+      const details = byId("selectedBookDetails");
+      details.replaceChildren();
+
+      const heading = document.createElement("strong");
+      heading.textContent = currentPaymentBooks.length === 1
+        ? currentPaymentBooks[0].title
+        : currentPaymentBooks.length + " different books";
+
+      const amount = document.createElement("span");
+      amount.textContent = "Total: " + formatPrice(total);
+
+      const list = document.createElement("p");
+      list.style.marginBottom = "0";
+      list.style.fontSize = "12px";
+      list.style.color = "#aaa";
+
+      list.textContent = currentPaymentBooks.map(function (item) {
+        return item.title + " × " + item.quantity;
+      }).join(", ");
+
+      details.appendChild(heading);
+      details.appendChild(amount);
+      details.appendChild(list);
+
+      byId("modalTelebirr").textContent = getTelebirrNumber();
+      byId("modalCBE").textContent = getCBEAccount();
+
+      const orderMessage = [
+        "Hello FXBOOKSTORE Support!",
+        "",
+        "I would like to submit payment proof for this order:",
+        currentPaymentBooks.map(function (item) {
+          return "- " + item.title +
+            " x" + item.quantity +
+            " — " + formatPrice(item.price * item.quantity);
+        }).join("\n"),
+        "",
+        "Total: " + formatPrice(total),
+        "",
+        "I will attach my payment screenshot for verification."
+      ].join("\n");
+
+      byId("sendProofButton").href =
+        TELEGRAM_ORDER_CHAT +
+        "?text=" + encodeURIComponent(orderMessage);
+
+      byId("paymentModal").classList.add("open");
+    }
+
+    function buyBook(bookId) {
+      const book = findBook(bookId);
+
+      if (!book) {
+        alert("This book could not be found. Please refresh the page.");
+        return;
+      }
+
+      closeCart();
+
+      showPaymentModal([{
+        id: book.id,
+        title: bookTitle(book),
+        price: bookPrice(book),
+        quantity: 1
+      }]);
+    }
+
+    async function copyAccount(elementId, buttonId) {
+      const text = byId(elementId).textContent.trim();
+      const button = byId(buttonId);
+      const originalText = button.textContent;
+
+      try {
+        await navigator.clipboard.writeText(text);
+
+        button.textContent = "Copied ✓";
+
+        setTimeout(function () {
+          button.textContent = originalText;
+        }, 1500);
+      } catch (error) {
+        window.prompt("Copy this account number:", text);
+      }
+    }
+
+    /* SUPABASE DATA */
+
+    async function loadBooks() {
+      const result = await supabaseClient
+        .from("books")
+        .select(
+          "id,title,price,image_url,category,description,is_active,created_at"
+        )
+        .eq("is_active", true)
+        .order("created_at", { ascending: false })
+        .limit(MAX_BOOKS);
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      allBooks = Array.isArray(result.data)
+        ? result.data
+        : [];
+
+      byId("bookCount").textContent = String(allBooks.length);
+
+      renderCategories();
+      renderBooks();
+    }
+
+    async function loadSettings() {
+      try {
+        const result = await supabaseClient
+          .from("store_settings")
+          .select("setting_key,setting_value");
+
+        if (result.error) {
+          console.warn("Store settings:", result.error.message);
+          return;
+        }
+
+        (result.data || []).forEach(function (row) {
+          storeSettings[row.setting_key] = row.setting_value;
+        });
+      } catch (error) {
+        console.warn("Could not load store settings.");
+      }
+    }
+
+    async function loadBanners() {
+      try {
+        const result = await supabaseClient
+          .from("banners")
+          .select("id,title,image_url,link_url,is_active,created_at")
+          .eq("is_active", true)
+          .order("created_at", { ascending: false })
+          .limit(5);
+
+        if (result.error) {
+          console.warn("Banners:", result.error.message);
+          return;
+        }
+
+        const container = byId("bannerSection");
+        container.replaceChildren();
+
+        (result.data || []).forEach(function (banner) {
+          const imageURL = safeHttpURL(banner.image_url || "");
+
+          if (!imageURL) {
+            return;
+          }
+
+          const wrapper = document.createElement("div");
+          wrapper.className = "banner";
+
+          const image = document.createElement("img");
+          image.src = imageURL;
+          image.alt = cleanText(banner.title) || "Store banner";
+          image.loading = "lazy";
+
+          image.addEventListener("error", function () {
+            wrapper.remove();
+          }, { once: true });
+
+          const linkURL = safeHttpURL(banner.link_url || "");
+
+          if (linkURL) {
+            const link = document.createElement("a");
+            link.href = linkURL;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.appendChild(image);
+            wrapper.appendChild(link);
+          } else {
+            wrapper.appendChild(image);
+          }
+
+          if (cleanText(banner.title)) {
+            const title = document.createElement("div");
+            title.className = "banner-title";
+            title.textContent = banner.title;
+            wrapper.appendChild(title);
+          }
+
+          wrapper.style.display = "block";
+          container.appendChild(wrapper);
+        });
+      } catch (error) {
+        console.warn("Could not load banners.");
+      }
+    }
+
+    /* INITIALIZATION */
+
+    function bindEvents() {
+      byId("currentYear").textContent =
+        String(new Date().getFullYear());
+
+      byId("searchInput").addEventListener("input", renderBooks);
+      byId("sortSelect").addEventListener("change", renderBooks);
+
+      byId("openCartButton").addEventListener("click", openCart);
+      byId("closeCartButton").addEventListener("click", closeCart);
+
+      byId("continueShoppingButton").addEventListener(
+        "click",
+        closeCart
+      );
+
+      byId("closePaymentButton").addEventListener(
+        "click",
+        closePaymentModal
+      );
+
+      byId("closePaymentButtonBottom").addEventListener(
+        "click",
+        closePaymentModal
+      );
+
+      byId("copyTelebirr").addEventListener("click", function () {
+        copyAccount("modalTelebirr", "copyTelebirr");
+      });
+
+      byId("copyCBE").addEventListener("click", function () {
+        copyAccount("modalCBE", "copyCBE");
+      });
+
+      byId("cartCheckoutButton").addEventListener("click", function () {
+        if (cart.length === 0) {
+          alert("Your cart is empty.");
+          return;
+        }
+
+        const items = cart.map(function (item) {
+          return {
+            id: item.id,
+            title: item.title,
+            price: item.price,
+            quantity: item.quantity
+          };
+        });
+
+        showPaymentModal(items);
+        closeCart();
+      });
+
+      byId("paymentModal").addEventListener("click", function (event) {
+        if (event.target === byId("paymentModal")) {
+          closePaymentModal();
+        }
+      });
+
+      byId("cartModal").addEventListener("click", function (event) {
+        if (event.target === byId("cartModal")) {
+          closeCart();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeCart();
+          closePaymentModal();
+        }
+      });
+    }
+
+    function closePaymentModal() {
+      byId("paymentModal").classList.remove("open");
+    }
+
+    async function initializeStore() {
+      byId("currentYear").textContent =
+        String(new Date().getFullYear());
+
+      bindEvents();
+      loadCart();
+
+      try {
+        if (
+          !window.supabase ||
+          typeof window.supabase.createClient !== "function"
+        ) {
+          throw new Error(
+            "Supabase library did not load. Check your internet connection."
+          );
+        }
+
+        supabaseClient = window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+        );
+
+        await Promise.all([
+          loadBooks(),
+          loadSettings(),
+          loadBanners()
+        ]);
+
+        if (allBooks.length === 0) {
+          byId("statusMessage").style.display = "block";
+          byId("statusMessage").textContent =
+            "No active books found. Check the admin panel and make sure your books are marked active.";
+        }
+      } catch (error) {
+        console.error("FXBOOKSTORE error:", error);
+
+        byId("statusMessage").style.display = "block";
+        byId("statusMessage").className = "message-box error";
+        byId("statusMessage").textContent =
+          "The bookstore could not load. Check your internet connection and Supabase settings, then reload the page.";
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener(
+        "DOMContentLoaded",
+        initializeStore
+      );
+    } else {
+      initializeStore();
+    }
+  </script>
 </body>
 </html>
